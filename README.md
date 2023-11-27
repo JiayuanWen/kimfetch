@@ -16,6 +16,6 @@ Clone this repository to edit the kimfetch script. To pack the script into an is
 * Since Red Star OS removed the ability to implement functions in custom scripts, please avoid using functions when modifying the script.
 * Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS, please install in a virtual environment with no access to internet granted. 
 
-## Credit
+## Credits
 * RedStar ASCII art taken from [this commit](https://github.com/dylanaraps/neofetch/commit/85eef19406a33b89841fc45a291c498ef100ad5c#diff-217319183016bd1258bd3cc9128aab333074f09e6d009094c032f7e6daee5dd4)
 * Used codes from: [Peter Mortensen](https://github.com/PeterMortensen), [kvivek](https://stackoverflow.com/users/1982677/kvivek), [Stéphane Chazelas](https://unix.stackexchange.com/users/22565/st%c3%a9phane-chazelas)
