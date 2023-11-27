@@ -6,9 +6,9 @@
 # Licence: CC BY-NC 4.0, more info: https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1
 
 # Hardcoded neofetch script for Red Star OS 2.0 & 3.0.
-# Normal neofetch or screenfetch script won't execute on Red Star OS due to multiple essencial commands, parameters, and the ability to define functions in script being removed from the distro. It is also not possible to install neofetch or screenfetch to begin with due to the lack of any conventional package manager. This script serves as a workaround.
-# Since Red Star OS removed the ability to implement functions in custom scripts, please avoid functions when modifying this script.
-# Warning: Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS, please install in a virtual environment with no access to internet. 
+# Normal neofetch or screenfetch script won't execute on Red Star OS due to multiple essencial commands and parameters, as well as the ability to define functions in script being removed from the distro. It is also not possible to install neofetch or screenfetch to begin with due to the lack of any conventional package manager. This script serves as a workaround.
+# Since Red Star OS removed the ability to implement functions in custom scripts, please avoid usingfunctions when modifying this script.
+# Warning: Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS, please install in a virtual environment with no access to internet granted. 
 
 # === Header ===
 # "Username@Hostname" as displayed on terminal
