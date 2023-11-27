@@ -1,0 +1,150 @@
+#!/bin/bash
+
+# *** Kimfetch ***
+# Version 1.0 
+# By Jiayuan "Weldon" Wen
+# Licence: CC BY-NC 4.0, more info: https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1
+
+# Hardcoded neofetch script for Red Star OS 2.0 & 3.0.
+# Normal neofetch or screenfetch script won't execute on Red Star OS due to multiple essencial commands, parameters, and the ability to define functions in script being removed from the distro. It is also not possible to install neofetch or screenfetch to begin with due to the lack of any conventional package manager. This script serves as a workaround.
+# Since Red Star OS removed the ability to implement functions in custom scripts, please avoid functions when modifying this script.
+# Warning: Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS, please install in a virtual environment with no access to internet. 
+
+# === Header ===
+# "Username@Hostname" as displayed on terminal
+SESSION="\e[1;31m$(whoami)\e[0m@\e[1;31m$(hostname)\e[0m";
+
+# === Separation line below header ===
+SEP=""
+LOOP="${#SESSION}"
+LOOP=$(($LOOP-16-10)) # Do not count color codes. Remove two "\e[1;31m" and two "\e[0m"
+SEP=$(printf "%0.s-" $(seq 1 $LOOP))
+
+# === OS info ===
+# Credit: kvivek & Peter Mortensen from StackOverflow
+# Link: https://stackoverflow.com/a/26988390
+OS=`uname -s`
+REV=`uname -r`
+MACH=`uname -m`
+if [ "${OS}" = "SunOS" ] ; then
+    OS=Solaris
+    ARCH=`uname -p`
+    OSSTR="${OS} ${REV}(${ARCH} `uname -v`)"
+elif [ "${OS}" = "AIX" ] ; then
+    OSSTR="${OS} `oslevel` (`oslevel -r`)"
+elif [ "${OS}" = "Linux" ] ; then
+    KERNEL=`uname -r`
+    if [ -f /etc/redhat-release ] ; then
+        DIST='RedHat'
+        PSUEDONAME=`cat /etc/redhat-release | sed s/.*\(// | sed s/\)//`
+        REV=`cat /etc/redhat-release | sed s/.*release\ // | sed s/\ .*//`
+    elif [ -f /etc/SuSE-release ] ; then
+        DIST=`cat /etc/SuSE-release | tr "\n" ' '| sed s/VERSION.*//`
+        REV=`cat /etc/SuSE-release | tr "\n" ' ' | sed s/.*=\ //`
+    elif [ -f /etc/mandrake-release ] ; then
+        DIST='Mandrake'
+        PSUEDONAME=`cat /etc/mandrake-release | sed s/.*\(// | sed s/\)//`
+        REV=`cat /etc/mandrake-release | sed s/.*release\ // | sed s/\ .*//`
+    elif [ -f /etc/debian_version ] ; then
+        DIST="Debian `cat /etc/debian_version`"
+        REV=""
+    fi
+    if [ -f /etc/UnitedLinux-release ] ; then
+        DIST="${DIST}[`cat /etc/UnitedLinux-release | tr "\n" ' ' | sed s/VERSION.*//`]"
+    fi
+    OSSTR="${OS} ${DIST} (${PSUEDONAME} ${MACH})"
+fi
+OS=${OSSTR}
+
+# === System board name ===
+BOARD=""
+BOARD+=`cat /sys/devices/virtual/dmi/id/board_vendor`" "`cat /sys/devices/virtual/dmi/id/board_name`" "`cat /sys/devices/virtual/dmi/id/board_version`
+
+# === Kernel name ===
+KERNEL=`uname -r`
+
+# === Shell type & version ===
+PROFILE_SHELL=""
+PROFILE_SHELL_VER=""
+if test -n "$ZSH_VERSION"; then
+  PROFILE_SHELL=zsh
+  PROFILE_SHELL_VER="$ZSH_VERSION"
+elif test -n "$BASH_VERSION"; then
+  PROFILE_SHELL=bash
+  PROFILE_SHELL_VER="$BASH_VERSION"
+elif test -n "$KSH_VERSION"; then
+  PROFILE_SHELL=ksh
+  PROFILE_SHELL_VER="$KSH_VERSION"
+elif test -n "$FCEDIT"; then
+  PROFILE_SHELL=ksh
+  PROFILE_SHELL_VER="$FCEDIT"
+elif test -n "$PS3"; then
+  PROFILE_SHELL=unknown
+  PROFILE_SHELL_VER="$PS3"
+else
+  PROFILE_SHELL=sh
+  PROFILE_SHELL_VER="$($SHELL --version)"
+fi
+
+# === Screen resolution ===
+SCREEN="$(echo $(xrandr | fgrep "*"))" # Wrapped in echo to eliminate unnecessary spaces
+
+# === Desktop Environment ===
+# We know Red Star OS 2.0 and 3.0 use KDE as DE according to https://archiveos.org/redstar/
+DE=$(konsole --version | grep "KDE")
+DE=${DE//[:]/ }
+DE=$(echo $DE) # Eliminate unnecessary spaces
+
+# === Window Manager ===
+WM=""
+if [ -z "$XDG_CURRENT_DESKTOP" ]; then
+    WM="Unknown"
+else
+    WM="$XDG_CURRENT_DESKTOP"
+fi
+
+# === Terminal program ===
+# Credit: Stéphane Chazelas from StackOverflow
+# Link: https://unix.stackexchange.com/a/264353
+TER=$(ps -o comm= -p "$(($(ps -o ppid= -p "$(($(ps -o sid= -p "$$")))")))")
+
+# === CPU name ===
+CPU=$(cat /proc/cpuinfo | grep "model name" | head -1)
+CPU="$(echo ${CPU#*:})"
+
+# === GPU name ===
+GPU=$(lspci | grep "VGA" | head -1)
+GPU="$(echo ${GPU#*:*:})"
+
+# === Memory usage ===
+MEM_USED=$(free -m | awk 'FNR == 2 {print $3}')
+MEM_TOTAL=$(free -m | awk 'FNR == 2 {print $2}')
+MEM="${MEM_USED}MB / ${MEM_TOTAL}MB"
+
+# === Storage ===
+STO_USED=$(df -h / | awk 'FNR == 2 {print $3}')
+STO_TOTAL=$(df -h / | awk 'FNR == 2 {print $2}')
+STO_PERC=$(df -h / | awk 'FNR == 2 {print $5}' | tr -d \%); 
+#STO=$(printf "%s" "${STO_USED}B / ${STO_TOTAL}B ($(echo ${STO_PERC})/100)")
+STO=$(printf "%s" "${STO_USED}B / ${STO_TOTAL}B")
+
+printf "\
+\e[1;31m                      ..                      \e[0m $(printf $SESSION)
+\e[1;31m                    .oK0l                     \e[0m $(printf -- $SEP) 
+\e[1;31m                   :0KKKKd.                   \e[0m $(printf "\e[1;31mOS\e[0m: $OS")
+\e[1;31m                 .xKO0KKKKd                   \e[0m $(printf "\e[1;31mHost\e[0m: $BOARD")
+\e[1;31m                ,Od' .d0000l                  \e[0m $(printf "\e[1;31mKernel\e[0m: $KERNEL")
+\e[1;31m               .c;.   .'''...           ..'.  \e[0m $(printf "\e[1;31mShell\e[0m: $PROFILE_SHELL $PROFILE_SHELL_VER")
+\e[1;31m  .,:cloddxxxkkkkOOOOkkkkkkkkxxxxxxxxxkkkx:   \e[0m $(printf "\e[1;31mResolution\e[0m: $SCREEN")
+\e[1;31m  ;kOOOOOOOkxOkc'...',;;;;,,,'',;;:cllc:,.    \e[0m $(printf "\e[1;31mDE\e[0m: $DE")
+\e[1;31m   .okkkkd,.lko  .......',;:cllc:;,,'''''.    \e[0m $(printf "\e[1;31mWM\e[0m: $WM")
+\e[1;31m     .cdo. :xd' cd:.  ..';'',,,'',,;;;,'.     \e[0m $(printf "\e[1;31mTerminal\e[0m: $TER")
+\e[1;31m        . .ddl.;doooc'..;oc;'..';::;,'.       \e[0m $(printf "\e[1;31mCPU\e[0m: $CPU")
+\e[1;31m          coo;.oooolllllllcccc:'.  .          \e[0m $(printf "\e[1;31mGPU\e[0m: $GPU")
+\e[1;31m         .ool''lllllccccccc:::::;.            \e[0m $(printf "\e[1;31mMemory\e[0m: $MEM")
+\e[1;31m         ;lll. .':cccc:::::::;;;;'            \e[0m $(printf "\e[1;31mStorage\e[0m: $STO")
+\e[1;31m         :lcc:'',..';::::;;;;;;;,,.           \e[0m 
+\e[1;31m         :cccc::::;...';;;;;,,,,,,.           \e[0m \e[30m███\e[31m███\e[32m███\e[33m███\e[34m███\e[35m███\e[36m███\e[37m███
+\e[1;31m         ,::::::;;;,'.  ..',,,,'''.           \e[0m \e[1;30m███\e[1;31m███\e[1;32m███\e[1;33m███\e[1;34m███\e[1;35m███\e[1;36m███\e[1;37m███
+\e[1;31m          ........          ......            \e[0m
+"
