@@ -1,6 +1,6 @@
 
 <h1 align="center">Kimfetch</h1>
-<p align="center">Hardcoded fetch script for Red Star OS 2.0 &amp; 3.0.</p>
+<p align="center">Hardcoded neofetch script for Red Star OS 2.0 &amp; 3.0.</p>
 <p align="center">
     <img width="1080" src="https://github.com/JiayuanWen/kimfetch/blob/main/screenshots/screenshot1.png" alt="kimfetch screenshot 1">
 </p>
