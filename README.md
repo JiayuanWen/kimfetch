@@ -5,7 +5,7 @@
     <img width="1080" src="https://github.com/JiayuanWen/kimfetch/blob/main/screenshots/screenshot1.png" alt="kimfetch screenshot 1">
 </p>
 
-Normal neofetch or screenfetch script won't execute on Red Star OS due to multiple essencial commands and parameters, as well as the ability to define functions in scripts being removed from the distro. It is also not possible to install neofetch or screenfetch to begin with due to the lack of any conventional package manager pre-installed in the distro. I wrote my own fetch script to work around these limitations. 
+Normal neofetch or screenfetch script won't execute on Red Star OS due to multiple essencial commands and parameters, as well as the ability to define functions in scripts being missing or removed from the distro, so I wrote my own fetch script to work around these limitations. 
 
 ## Install
 Installation instructions can be found in the [[Wiki](https://github.com/JiayuanWen/kimfetch/wiki)].
