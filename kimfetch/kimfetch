@@ -192,7 +192,9 @@ if [ -d "$CFG_DIR" ]; then
 	true
 	#echo "Config folder exist"
 else
-	mkdir "$CFG_DIR"
+	if [ "$EUID" -ne 0 ]; then
+		mkdir "$CFG_DIR"
+	fi
 	#echo "Config folder not exist"
 fi
 # If user set a color with the -c flag
@@ -200,7 +202,6 @@ if [[ -n "$color_code" ]]; then
 	# Make sure user is not running as root
 	if [ "$EUID" -eq 0 ]; then
 		echo "Error: Must run as non-root"
-		newline
 		exit 1
 	fi
 	# Check if user set valid value
@@ -221,15 +222,15 @@ if [ ! -e "$HOME/.config/kimfetch/color" ]; then
 	# Red for Red Star OS 2.0
 	# Green for Red Star OS 3.0
 	if [[ ${OSSTR} == *"2"* ]]; then
-		COLOR="\e[31m"
+		COLOR="\e[1;31m"
 	elif [[ ${OSSTR} == *"3"* ]]; then
 		COLOR="\e[32m"
 	else
-		COLOR="\e[31m"
+		COLOR="\e[1;31m"
 	fi
 else
 	if [ "$(cat $HOME/.config/kimfetch/color)" == "1" ]; then
-		COLOR="\e[31m"
+		COLOR="\e[1;31m"
 	fi
 	if [ "$(cat $HOME/.config/kimfetch/color)" == "2" ]; then
 		COLOR="\e[32m"
@@ -240,7 +241,6 @@ if [[ -n "$default_color" ]] && [ "$default_color" == true ]; then
 	# Make sure user is not running as root
 	if [ "$EUID" -eq 0 ]; then
 		echo "Error: Must run as non-root"
-		newline
 		exit 1
 	fi
 	if [ ! -e "$HOME/.config/kimfetch/color" ] && [ ! -d "$HOME/.config/kimfetch" ]; then
