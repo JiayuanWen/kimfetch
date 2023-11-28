@@ -6,8 +6,8 @@
 # Licence: CC BY-NC 4.0, more info: https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1
 
 # Hardcoded neofetch script for Red Star OS 2.0 & 3.0.
-# Normal neofetch or screenfetch script won't execute on Red Star OS due to multiple essencial commands, parameters, and the ability to define functions in script being removed from the distro. It is also not possible to install neofetch or screenfetch to begin with due to the lack of any conventional package manager. This script serves as a workaround.
-# Since Red Star OS removed the ability to implement functions in custom scripts, please avoid functions when modifying this script.
+# Normal neofetch or screenfetch script won't execute on Red Star OS due to multiple essencial commands, parameters, and the ability to define functions in script being missing or removed from the distro, so I wrote this script to work around these limitations.
+# Since Red Star OS is missing the ability to implement functions in custom scripts, please avoid functions when modifying this script.
 # Warning: Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS, please install in a virtual environment with no access to internet. 
 
 # === Header ===
@@ -52,7 +52,14 @@ elif [ "${OS}" = "Linux" ] ; then
     if [ -f /etc/UnitedLinux-release ] ; then
         DIST="${DIST}[`cat /etc/UnitedLinux-release | tr "\n" ' ' | sed s/VERSION.*//`]"
     fi
-    OSSTR="${OS} ${DIST} (${PSUEDONAME} ${MACH})"
+	# Show OS+DIST if PSUEDONAME not provided, otherwise show PSUDONAME.
+	# MACH show on both cases
+	#OSSTR="${OS} ${DIST} ${PSUEDONAME} ${MACH}"
+	if [ -z "$PSUEDONAME" ] ; then
+		OSSTR="${OS} ${DIST} ${MACH}"
+	else
+		OSSTR="${PSUEDONAME} ${MACH}"
+	fi
 fi
 OS=${OSSTR}
 
@@ -125,7 +132,8 @@ MEM="${MEM_USED}MB / ${MEM_TOTAL}MB"
 STO_USED=$(df -h / | awk 'FNR == 2 {print $3}')
 STO_TOTAL=$(df -h / | awk 'FNR == 2 {print $2}')
 STO_PERC=$(df -h / | awk 'FNR == 2 {print $5}' | tr -d \%); 
-#STO=$(printf "%s" "${STO_USED}B / ${STO_TOTAL}B ($(echo ${STO_PERC})/100)")
+#STO_PERC=$(df -h / | awk 'FNR == 2 {print $5}');
+#STO=$(printf "%s" "${STO_USED}B / ${STO_TOTAL}B ($(echo ${STO_PERC}))")
 STO=$(printf "%s" "${STO_USED}B / ${STO_TOTAL}B")
 
 printf "\
