@@ -5,10 +5,12 @@
 # By Jiayuan "Weldon" Wen
 # Licence: CC BY-NC 4.0, more info: https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1
 
-# Hardcoded neofetch script for Red Star OS 2.0 & 3.0.
+# Hardcoded system information script for Red Star OS 2.0 & 3.0.
 # Normal neofetch or screenfetch script won't execute on Red Star OS due to multiple essencial commands, parameters, and the ability to define functions in script being missing or removed from the distro, so I wrote this script to work around these limitations.
-# Since Red Star OS is missing the ability to implement functions in custom scripts, please avoid functions when modifying this script.
-# Warning: Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS, please install in a virtual environment with no access to internet. 
+
+# For devs:
+# Since Red Star OS is missing the ability to implement functions in Shell scripts, please avoid use of functions when modifying this script. Use variables instead
+# Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS, please install in a virtual environment with no access to internet. 
 
 # Flags
 while getopts c:hf flag
