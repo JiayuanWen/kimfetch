@@ -25,9 +25,11 @@ done
 # Display help when user state -h flag
 if [[ -n "$display_help" ]] && [ "$display_help" == true ]; then
 	echo "Flags:"
-    echo "  -c    Set color theme (1: Red, 2: Green). Usage: kimfetch -c [int]"
+    echo "  -c    Set color scheme (1: Red, 2: Green). Usage: kimfetch -c [1|2]"
 	echo "  -f    Cancel set color theme and use default. Usage: kimfetch -f"
     echo "  -h    Display help. Usage: kimfetch -h"
+	echo ""
+	echo "For more detail, visit https://github.com/JiayuanWen/kimfetch/wiki/Sctript-Functions"
 	
 	exit 0;
 fi
