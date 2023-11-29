@@ -13,7 +13,7 @@ Installation instructions can be found in the [[Wiki](https://github.com/Jiayuan
 ## Credits
 * RedStar ASCII art taken from [this commit](https://github.com/dylanaraps/neofetch/commit/85eef19406a33b89841fc45a291c498ef100ad5c#diff-217319183016bd1258bd3cc9128aab333074f09e6d009094c032f7e6daee5dd4).
 * Used codes from: [Peter Mortensen](https://github.com/PeterMortensen), [kvivek](https://stackoverflow.com/users/1982677/kvivek), [Stéphane Chazelas](https://unix.stackexchange.com/users/22565/st%c3%a9phane-chazelas).
-* Install instruction includes [RedStar Tools](https://github.com/takeshixx/redstar-tools) by [takeshixx](https://github.com/takeshixx).
+* Install instruction includes [RedStar Tools](https://github.com/takeshixx/redstar-tools).
 * Base on the likeness of [neofetch](https://github.com/dylanaraps/neofetch).
 
 #### Warnings for devs:
