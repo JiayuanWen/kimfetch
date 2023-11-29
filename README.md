@@ -18,4 +18,4 @@ Installation instructions can be found in the [[Wiki](https://github.com/Jiayuan
 
 #### Warnings for devs:
 * Since Red Star OS removed the ability to implement functions in custom scripts, please avoid using functions when modifying the script.
-* Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS, please install in a virtual environment with no access to internet granted. 
+* Red Star OS is developed by the DPRK, it is highly adviced not to install the system on your machine due to privacy risk and for personal safity. If you must use the OS for any reason, please install in a virtual environment with either no access to internet granted or VPN on host OS enabled. 
