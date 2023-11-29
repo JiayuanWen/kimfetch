@@ -2,7 +2,7 @@
 <h1 align="center">Kimfetch</h1>
 <p align="center">Hardcoded system information script for Red Star OS 2.0 &amp; 3.0.</p>
 <p align="center">
-    <img width="1080" src="https://github.com/JiayuanWen/kimfetch/blob/main/screenshots/screenshot1.png" alt="kimfetch screenshot 1">
+    <img width="1080" src="https://github.com/JiayuanWen/kimfetch/blob/main/screenshots/screenshot-1.png" alt="kimfetch screenshot 1">
 </p>
 
 Kimfetch recreates the look and function of [neofetch](https://github.com/dylanaraps/neofetch), the aim is to work around the issue where normal `neofetch` and `screenfetch` won't execute on Red Star OS due to essencial commands and parameters, as well as the ability to define functions in Shell scripts being missing or removed from the distros. 
